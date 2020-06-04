@@ -97,7 +97,7 @@ Seat.remove = (id, result) => {
 };
 
 Seat.removeAll = result => {
-    sql.query("DELETE FROM customers", (err, res) => {
+    sql.query("DELETE FROM Seat", (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
