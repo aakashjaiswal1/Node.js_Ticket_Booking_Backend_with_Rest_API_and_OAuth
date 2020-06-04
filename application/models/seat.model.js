@@ -10,8 +10,6 @@ const Seat = function(seat) {
 };
 
 Seat.create = (newSeat, result) => {
-    console.log("request recieved to add a new seat contents are =>  ");
-    console.log("value of new seat is => " + newSeat.email);
     sql.query("INSERT INTO Seat SET ?", newSeat, (err, res) => {
         if (err) {
             console.log("error: ", err);
@@ -55,60 +53,60 @@ Seat.getAll = result => {
         result(null, res);
     });
 };
-//
-// Seat.updateById = (id, customer, result) => {
-//     sql.query(
-//         "UPDATE customers SET email = ?, name = ?, active = ? WHERE id = ?",
-//         [customer.email, customer.name, customer.active, id],
-//         (err, res) => {
-//             if (err) {
-//                 console.log("error: ", err);
-//                 result(null, err);
-//                 return;
-//             }
-//
-//             if (res.affectedRows == 0) {
-//                 // not found Customer with the id
-//                 result({ kind: "not_found" }, null);
-//                 return;
-//             }
-//
-//             console.log("updated customer: ", { id: id, ...customer });
-//             result(null, { id: id, ...customer });
-//         }
-//     );
-// };
-//
-// Seat.remove = (id, result) => {
-//     sql.query("DELETE FROM customers WHERE id = ?", id, (err, res) => {
-//         if (err) {
-//             console.log("error: ", err);
-//             result(null, err);
-//             return;
-//         }
-//
-//         if (res.affectedRows == 0) {
-//             // not found Customer with the id
-//             result({ kind: "not_found" }, null);
-//             return;
-//         }
-//
-//         console.log("deleted customer with id: ", id);
-//         result(null, res);
-//     });
-// };
-//
-// Seat.removeAll = result => {
-//     sql.query("DELETE FROM customers", (err, res) => {
-//         if (err) {
-//             console.log("error: ", err);
-//             result(null, err);
-//             return;
-//         }
-//
-//         console.log(`deleted ${res.affectedRows} customers`);
-//         result(null, res);
-//     });
-// };
+
+Seat.updateById = (id, seat, result) => {
+    sql.query(
+        "UPDATE Seat SET email = ?, name = ?, booked = ?, age = ? WHERE id = ?",
+        [seat.email, seat.name, seat.booked,seat.age, id],
+        (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(null, err);
+                return;
+            }
+
+            if (res.affectedRows === 0) {
+                // not found Customer with the id
+                result({ kind: "not_found" }, null);
+                return;
+            }
+
+            console.log("updated customer: ", { id: id, ...seat });
+            result(null, { id: id, ...seat });
+        }
+    );
+};
+
+Seat.remove = (id, result) => {
+    sql.query("DELETE FROM Seat WHERE id = ?", id, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+
+        if (res.affectedRows === 0) {
+            // not found Customer with the id
+            result({ kind: "not_found" }, null);
+            return;
+        }
+
+        console.log("deleted customer with id: ", id);
+        result(null, res);
+    });
+};
+
+Seat.removeAll = result => {
+    sql.query("DELETE FROM customers", (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+
+        console.log(`deleted ${res.affectedRows} customers`);
+        result(null, res);
+    });
+};
 
 module.exports = Seat;

@@ -1,4 +1,5 @@
-import * as express from "express";
+
+const express = require("express");
 
 module.exports = app => {
     const seat = require("./seat.controller");
@@ -14,14 +15,14 @@ module.exports = app => {
     app.get("/customers", seat.findAll);
 
     // // Retrieve a single Customer with customerId
-    // app.get("/customers/:customerId", customers.findOne);
+     app.get("/seat/:id", seat.findOne);
     //
-    // // Update a Customer with customerId
-    // app.put("/customers/:customerId", customers.update);
+    // Update a Customer with customerId
+    app.put("/seat/:id", seat.update);
     //
     // // Delete a Customer with customerId
-    // app.delete("/customers/:customerId", customers.delete);
+    app.delete("/seat/:id", seat.delete);
     //
     // // Create a new Customer
-    // app.delete("/customers", customers.deleteAll);
+    app.delete("/reset", seat.deleteAll);
 };
