@@ -8,6 +8,7 @@ exports.create = (req, res) => {
             message: "Content can not be empty!"
         });
     }
+
     console.log("seat controller.js debug "+req.name);
 
     // Create a Seat
@@ -21,11 +22,19 @@ exports.create = (req, res) => {
 
     // Save Customer in the database
     Seat.create(seat, (err, data) => {
-        if (err)
+
+        if (err){
+            if(err.toString()==="forbidden index"){
+                res.status(403).send({
+                    message:
+                         "Forbidden Insert id"
+                });
+            }
             res.status(500).send({
                 message:
                     err.message || "Some error occurred while creating the Customer."
             });
+        }
         else res.send(data);
     });
 };

@@ -10,6 +10,11 @@ const Seat = function(seat) {
 };
 
 Seat.create = (newSeat, result) => {
+    if(newSeat.id <1 || newSeat.id >40){
+        console.log("error: forbidden index");
+        result("forbidden index", null);
+        return;
+    }
     sql.query("INSERT INTO Seat SET ?", newSeat, (err, res) => {
         if (err) {
             console.log("error: ", err);
